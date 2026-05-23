@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = null;  // Full screen without navbar
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hostel Maintenance - Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .login-container {
+            height: 100vh;
+        }
+
+        .left-panel {
+            background-color: #f5f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .left-panel img {
+                max-width: 80%;
+                height: auto;
+            }
+
+        .right-panel {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 350px;
+        }
+
+            .login-box h2 {
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .login-box p {
+                font-size: 14px;
+                opacity: 0.9;
+                margin-bottom: 25px;
+            }
+
+        .form-control {
+            border-radius: 20px;
+            padding: 10px 15px;
+        }
+
+        .btn-login {
+            border-radius: 20px;
+            padding: 10px;
+            background-color: #5b7cfa;
+            border: none;
+        }
+
+            .btn-login:hover {
+                background-color: #4a6ae0;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid login-container">
+        <div class="row h-100">
+
+            <!-- Left Illustration Panel -->
+            <div class="col-md-6 left-panel">
+                <!-- Replace src with your image path -->
+                <img src="~/images/login-illustration.png" alt="Login Illustration" />
+            </div>
+
+            <!-- Right Login Panel -->
+            <div class="col-md-6 right-panel">
+                <div class="login-box">
+
+                    <h2>Hostel Maintenance</h2>
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" form="loginForm" class="form-control" placeholder="Enter username" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" form="loginForm" class="form-control" placeholder="Enter password" required />
+                    </div>
+
+                    <form id="loginForm" method="post">
+                        <button type="submit" class="btn btn-login w-100 text-white">Login</button>
+                    </form>
+
+                    <p class="mt-3" style="font-size:13px;">
+                        Sign in to submit or manage maintenance requests
+                    </p>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @ViewBag.Error
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+﻿@model List<HostelMaintenanceSystem.Models.MaintenanceRequest>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6fb;
+        }
+
+        .container-fluid {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1e3c72;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .sidebar h4 {
+                font-weight: 600;
+            }
+
+            .sidebar .card {
+                background-color: #2f4fa3;
+                border: none;
+                border-radius: 10px;
+                color: white;
+                text-align: center;
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+        .logout-btn {
+            background-color: #6c2bd9;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+            .main-content h2 {
+                font-weight: 600;
+            }
+
+        .table-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            font-size: 14px;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        /* Status badges */
+        .badge-approved {
+            background-color: #d1fae5;
+            color: #059669;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .badge-pending {
+            background-color: #fef3c7;
+            color: #b45309;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .badge-rejected {
+            background-color: #fee2e2;
+            color: #dc2626;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        /* Buttons */
+        .btn-approve {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        .btn-reject {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div>
+                <h4>Admin Panel</h4>
+                <p style="font-size:13px;">Maintenance system</p>
+
+                <div class="card">
+                    <h2>@ViewBag.PendingCount</h2>
+                    <p>Pending requests</p>
+                </div>
+            </div>
+
+            <a href="/Account/Logout" class="logout-btn text-center d-block">
+                Logout
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>All Maintenance Requests</h2>
+            <p class="text-muted">Review and manage student maintenance requests</p>
+
+            <div class="table-card mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Student Name</th>
+                            <th>Room No</th>
+                            <th>Issue Type</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.RequestId</td>
+                                <td>@item.Username</td>
+                                <td>@item.RoomNo</td>
+                                <td>@item.IssueType</td>
+                                <td>
+                                    <span class="badge
+                    @(item.Status == "Approved" ? "bg-success" :
+                                                            item.Status == "Rejected" ? "bg-danger" : "bg-warning")">
+                                        @item.Status
+                                    </span>
+                                </td>
+                                <td>@item.Date.ToShortDateString()</td>
+
+                                <td>
+                                    <a href="/Admin/Approve/@item.RequestId" class="btn btn-success btn-sm">Approve</a>
+                                    <a href="/Admin/Reject/@item.RequestId" class="btn btn-danger btn-sm">Reject</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

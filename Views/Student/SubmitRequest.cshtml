@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Submit Request</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6fb;
+        }
+
+        .container-fluid {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #1e3c72;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .sidebar h4 {
+                font-weight: 600;
+            }
+
+        .menu {
+            margin-top: 30px;
+        }
+
+            .menu a {
+                display: block;
+                padding: 10px 15px;
+                border-radius: 8px;
+                color: white;
+                text-decoration: none;
+                margin-bottom: 10px;
+            }
+
+                .menu a.active {
+                    background-color: white;
+                    color: #1e3c72;
+                }
+
+        .logout-btn {
+            background-color: #6c2bd9;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+            .main-content h2 {
+                color: #1e3c72;
+                font-weight: 600;
+            }
+
+        .form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 700px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .btn-submit {
+            background-color: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
+
+            .btn-submit:hover {
+                background-color: #16325c;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div>
+                <h4>Student Portal</h4>
+                <p style="font-size:13px;">Maintenance system</p>
+
+                <div class="menu">
+                    <a href="/Student/SubmitRequest" class="active">+ Submit Request</a>
+                    <a href="/Student/StudentDashboard">My Requests</a>
+                </div>
+            </div>
+
+            <a href="/Account/Logout" class="logout-btn text-center d-block">
+                Logout
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Submit Maintenance Request</h2>
+            <p class="text-muted">Fill out the form below to report a maintenance issue</p>
+
+            <div class="form-card mt-4">
+
+                <h5>Request Details:</h5>
+
+                <form asp-action="SubmitRequest" method="post">
+
+                    <label>Issue Type</label>
+                    <input type="text" name="IssueType" class="form-control" required />
+
+                    <label>Room No</label>
+                    <select name="RoomNo" class="form-control">
+                        <option value="">-- Select Room --</option>
+                        @for (int i = 102; i <= 112; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+
+                    <label>Description</label>
+                    <textarea name="Description" class="form-control"></textarea>
+
+                    <br />
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
